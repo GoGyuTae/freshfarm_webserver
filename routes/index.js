@@ -48,13 +48,4 @@ router.post('/AP1', function(req, res) {
   );
 });
 
-router.post('/AP2', function(req, res) {
-  const user_message = req.body.message;
-  res.status(200).json(
-    {
-      "message" : user_message
-    }
-  );
-});
-
 module.exports = router;
