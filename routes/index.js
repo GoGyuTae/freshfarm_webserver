@@ -3,7 +3,7 @@ var router = express.Router();
 var models = require('../models');
 var sequelize = require('sequelize');
 
-router.get('/AG1/:id', function(req, res, next) {
+router.get('/getRecentData/:id', function(req, res, next) {
   models.freshtable.findOne(
     {
       where: {
@@ -38,7 +38,7 @@ router.get('/AG1/:id', function(req, res, next) {
     });
 });*/
 
-router.post('/upload', function(req, res) {
+router.post('/uploadData', function(req, res) {
   models.freshtable.create({
     temperature: req.body.temperature,
     humidity: req.body.humidity,
