@@ -3,7 +3,7 @@ var router = express.Router();
 var models = require('../models');
 var sequelize = require('sequelize');
 
-router.get('/getRecentData/:id', function(req, res, next) {
+router.get('/AG1/:id', function(req, res, next) {
   models.freshtable.findOne(
     {
       where: {
@@ -22,7 +22,7 @@ router.get('/getRecentData/:id', function(req, res, next) {
     });
 });
 
-/*router.get('/AG2', function(req, res, next) {
+router.get('/AG2', function(req, res, next) {
   models.freshtable.findOne(
     {
       order: [
@@ -36,21 +36,16 @@ router.get('/getRecentData/:id', function(req, res, next) {
         humidity: freshtable.humidity,
         g_humidity: freshtable.g_humidity,});
     });
-});*/
-
-router.post('/uploadData', function(req, res) {
-  models.freshtable.create({
-    temperature: req.body.temperature,
-    humidity: req.body.humidity,
-    g_humidity: req.body.g_humidity,
-    machine_num: req.body.machine_num,
-  })
-  .then((freshtable) => {
-    res.json(
-      {
-      temperature: freshtable.temperature,
-      humidity: freshtable.humidity,
-      g_humidity: freshtable.g_humidity,});
-  });
 });
+
+router.post('/AP1', function(req, res) {
+  const user_message = req.body.message;
+  res.status(200).json(
+    {
+      "message" : user_message
+      // 데이터 베이스에 데이터를 보냄
+    }
+  );
+});
+
 module.exports = router;
