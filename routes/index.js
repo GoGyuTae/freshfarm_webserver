@@ -3,7 +3,7 @@ var router = express.Router();
 var models = require('../models');
 var sequelize = require('sequelize');
 
-router.get('/AG1/:id', function(req, res, next) {
+router.get('/ANgetRecentData/:id', function(req, res, next) {
   models.freshtable.findOne(
     {
       where: {
@@ -22,30 +22,59 @@ router.get('/AG1/:id', function(req, res, next) {
     });
 });
 
-router.get('/AG2', function(req, res, next) {
-  models.freshtable.findOne(
+router.get('/ARgetRecentData/:id', function(req, res, next) {
+  models.freshsettable.findOne(
     {
+      where: {
+        machine_num : req.params.id
+      },
       order: [
-        ['id', 'DESC'] // MN = 2
+        ['id', 'DESC']
       ]
     })
-    .then((freshtable) => {
+    .then((freshsettable) => {
       res.json(
         {
-        temperature: freshtable.temperature,
-        humidity: freshtable.humidity,
-        g_humidity: freshtable.g_humidity,});
+        illuminatation : freshsettable.illuminatation,
+        temperature: freshsettable.temperature,
+        humidity: freshsettable.humidity,
+        g_humidity: freshsettable.g_humidity,});
     });
 });
 
-router.post('/AP1', function(req, res) {
-  const user_message = req.body.message;
-  res.status(200).json(
-    {
-      "message" : user_message
-      // 데이터 베이스에 데이터를 보냄
-    }
-  );
+
+router.post('/ARuploadData', function(req, res) {
+  models.freshtable.create({
+    temperature: req.body.temperature,
+    humidity: req.body.humidity,
+    g_humidity: req.body.g_humidity,
+    machine_num: req.body.machine_num,
+  })
+  .then((freshtable) => {
+    res.json(
+      {
+      temperature: freshtable.temperature,
+      humidity: freshtable.humidity,
+      g_humidity: freshtable.g_humidity,});
+  });
+});
+
+router.post('/ANuploadData', function(req, res) {
+  models.freshsettable.create({
+    illuminatation : req.body.illuminatation,
+    temperature: req.body.temperature,
+    humidity: req.body.humidity,
+    g_humidity: req.body.g_humidity,
+    machine_num: req.body.machine_num,
+  })
+  .then((freshsettable) => {
+    res.json(
+      {
+      illuminatation : freshsettable.illuminatation,
+      temperature: freshsettable.temperature,
+      humidity: freshsettable.humidity,
+      g_humidity: freshsettable.g_humidity,});
+  });
 });
 
 module.exports = router;
