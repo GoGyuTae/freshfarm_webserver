@@ -55,7 +55,8 @@ router.post('/ARuploadData', function(req, res) {
       {
       temperature: freshtable.temperature,
       humidity: freshtable.humidity,
-      g_humidity: freshtable.g_humidity,});
+      g_humidity: freshtable.g_humidity,
+      machine_num: freshtable.machine_num,});
   });
 });
 
@@ -73,7 +74,8 @@ router.post('/ANuploadData', function(req, res) {
       illuminatation : freshsettable.illuminatation,
       temperature: freshsettable.temperature,
       humidity: freshsettable.humidity,
-      g_humidity: freshsettable.g_humidity,});
+      g_humidity: freshsettable.g_humidity,
+      machine_num: freshsettable.machine_num,});
   });
 });
 
